@@ -10,5 +10,12 @@
 			},
 			"ios": {}
 		}
+		,"preview": {
+			"releaseChannel": "preview",
+			"android": {
+				"buildType": "apk"
+			},
+			"ios": {}
+		}
 	}
 }

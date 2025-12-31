@@ -109,3 +109,28 @@ Join our community of developers creating universal apps.
 
 - [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
 - [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+
+
+# Estrutua de archivos
+/
+├── app/                  # 🟢 RUTAS Y NAVEGACIÓN (Expo Router)
+│   ├── (auth)/           # Grupo de rutas de autenticación (login, registro)
+│   ├── (tabs)/           # Grupo de rutas principales con Bottom Tabs
+│   ├── _layout.tsx       # Layout principal (Providers, Temas)
+│   └── +not-found.tsx    # Pantalla de error 404
+├── src/                  # 🔵 LÓGICA DE LA APLICACIÓN
+│   ├── components/       # Componentes reutilizables (Botones, Cards)
+│   │   ├── common/       # UI básica (Atomos)
+│   │   └── forms/        # Componentes de formularios
+│   ├── hooks/            # Custom Hooks (useAuth, useDebounce)
+│   ├── services/         # Llamadas a API (Axios, Fetch, React Query)
+│   ├── store/            # Gestión de estado (Zustand, Redux, Context)
+│   ├── constants/        # Colores, tamaños, URLs de API
+│   ├── types/            # Interfaces y tipos globales de TypeScript
+│   └── utils/            # Funciones de ayuda (formateo de fechas, validaciones)
+├── assets/               # 🟡 RECURSOS ESTÁTICOS
+│   ├── images/
+│   └── fonts/
+├── app.json              # Configuración de Expo
+├── expo-env.d.ts         # Tipado de Expo
+└── tsconfig.json         # Configuración de TypeScript

@@ -1,0 +1,24 @@
+name: Create Preview Builds
+
+on:
+  pull_request:
+    branches: ['*']
+  push:
+    branches: ['develop', 'preview']
+
+jobs:
+  build_android_preview:
+    name: Build Android (Preview)
+    type: build
+    params:
+      platform: android
+      profile: preview
+      message: 'Creating preview build for Android'
+
+  build_ios_preview:
+    name: Build iOS (Preview)
+    type: build
+    params:
+      platform: ios
+      profile: preview
+      message: 'Creating preview build for iOS'
