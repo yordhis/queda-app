@@ -9,9 +9,11 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.osuna.quedaapp"
     },
     "android": {
+      "package": "com.osuna.quedaapp",
       "adaptiveIcon": {
         "backgroundColor": "#FFAC00",
         "foregroundImage": "./assets/images/fondo-app.png",
