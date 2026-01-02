@@ -1,67 +1,19 @@
 import { useRouter } from 'expo-router';
-import { useState } from 'react';
-import { Alert, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 
-export default function Login() {
+export default function index() {
   const router = useRouter();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [loading, setLoading] = useState(false);
-
-  const validate = () => {
-    const re = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
-    if (!re.test(email)) {
-      Alert.alert('Email inválido', 'Introduce un correo electrónico válido.');
-      return false;
-    }
-    if (password.length < 6) {
-      Alert.alert('Contraseña', 'La contraseña debe tener al menos 6 caracteres.');
-      return false;
-    }
-    return true;
-  };
-
-  const onSubmit = () => {
-    if (!validate()) return;
-    setLoading(true);
-    // Mock auth: simulate server delay
-    setTimeout(() => {
-      setLoading(false);
-      // Here you would call your backend. For now we accept any valid creds.
-      router.replace('/');
-    }, 800);
-  };
 
   return (
-      <View style={styles.card}>
-        <Text style={styles.title}>Iniciar Sesión</Text>
-        <Text style={styles.subtitle}>Bienvenido de nuevo, por favor ingresa tus credenciales.</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Correo Electrónico"
-          keyboardType="email-address"
-          autoCapitalize="none"
-          value={email}
-          onChangeText={setEmail}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Contraseña"
-          secureTextEntry
-          value={password}
-          onChangeText={setPassword}
-        />
-        <TouchableOpacity
-          style={[styles.button, loading && styles.buttonDisabled]}
-          onPress={onSubmit}
-          disabled={loading}
-        >
-          <Text style={styles.buttonText}>{loading ? 'Cargando...' : 'Ingresar'}</Text>
-        </TouchableOpacity>
-      </View>
-   
+    <View className="flex-1 items-center justify-center bg-slate-900">
+      <Text className="text-2xl font-bold text-white">
+        ¡NativeWind está funcionando! 🚀
+      </Text>
+    </View>
+
   );
 }
+
 
 const styles = StyleSheet.create({
   container: {
