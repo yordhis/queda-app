@@ -3,5 +3,6 @@
     "source.fixAll": "explicit",
     "source.organizeImports": "explicit",
     "source.sortMembers": "explicit"
-  }
+  },
+  "deepseek.apiKey": "sk-ff60a3ab23504faa86adca34947b4ff2"
 }

@@ -1,4 +1,19 @@
-/* global.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* global.css */
+@layer base {
+  :root {
+    /* Usamos espacios para que Tailwind pueda inyectar la opacidad */
+    --color-primary: 255 172 0; /* naranja */
+    --color-secundary:  255 255 255; /* blanco */ 
+  }
+
+  /* Si usas modo oscuro, puedes cambiar el valor de la variable aquí */
+  .dark:root {
+    --color-primary: 255 255 255; /* blanco */
+    --color-secundary: 255 172 0; /* naranja */
+  }
+}
+

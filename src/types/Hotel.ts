@@ -8,3 +8,5 @@ type Hotel = {
     images: string[];
     description: string;
 };
+
+export default Hotel;

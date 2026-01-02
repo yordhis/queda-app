@@ -6,8 +6,21 @@ module.exports = {
   ],
   presets: [require("nativewind/preset")],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        // El <alpha-value> permite que Tailwind aplique opacidad (ej. primary/50)
+        primary: "rgb(var(--color-primary) / <alpha-value>)",
+      },
+    },
   },
-  plugins: [],
+  plugins: [
+    // Set a default value on the `:root` element
+    ({ addBase }) =>
+      addBase({
+        ":root": {
+          "--color-values": "255 172 0",
+        },
+      }),
+  ],
 }
 
