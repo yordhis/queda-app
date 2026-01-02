@@ -1,6 +1,6 @@
 import { useRouter } from 'expo-router';
-import React, { useState } from 'react';
-import { Alert, KeyboardAvoidingView, Platform, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
+import { useState } from 'react';
+import { Alert, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
 export default function Login() {
   const router = useRouter();
@@ -33,46 +33,33 @@ export default function Login() {
   };
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-      style={styles.container}
-    >
       <View style={styles.card}>
-        <Text style={styles.title}>Bienvenido</Text>
-        <Text style={styles.subtitle}>Inicia sesión para continuar</Text>
-
+        <Text style={styles.title}>Iniciar Sesión</Text>
+        <Text style={styles.subtitle}>Bienvenido de nuevo, por favor ingresa tus credenciales.</Text>
         <TextInput
           style={styles.input}
-          placeholder="Correo electrónico"
+          placeholder="Correo Electrónico"
           keyboardType="email-address"
           autoCapitalize="none"
           value={email}
           onChangeText={setEmail}
-          accessible
-          accessibilityLabel="Correo electrónico"
-          placeholderTextColor="#999"
         />
-
         <TextInput
           style={styles.input}
           placeholder="Contraseña"
           secureTextEntry
           value={password}
           onChangeText={setPassword}
-          accessible
-          accessibilityLabel="Contraseña"
-          placeholderTextColor="#999"
         />
-
-        <Pressable
+        <TouchableOpacity
+          style={[styles.button, loading && styles.buttonDisabled]}
           onPress={onSubmit}
-          style={[styles.button, loading ? styles.buttonDisabled : null]}
-          accessibilityRole="button"
+          disabled={loading}
         >
-          <Text style={styles.buttonText}>{loading ? 'Ingresando...' : 'Ingresar'}</Text>
-        </Pressable>
+          <Text style={styles.buttonText}>{loading ? 'Cargando...' : 'Ingresar'}</Text>
+        </TouchableOpacity>
       </View>
-    </KeyboardAvoidingView>
+   
   );
 }
 
