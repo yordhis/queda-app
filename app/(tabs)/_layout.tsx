@@ -1,5 +1,5 @@
 import { Tabs } from "expo-router";
-import { Home, User } from "lucide-react-native";
+import { Bookmark, Home, UserRound } from "lucide-react-native";
 
 export default function TabsLayout() {
     return (
@@ -26,14 +26,24 @@ export default function TabsLayout() {
                 }}
             />
             <Tabs.Screen
-                name="Perfil"
+                name="saved"
                 options={{
-                    title: 'Mi Perfil',
+                    title: 'Guardados',
                     tabBarIcon: () => (
-                        <User />
+                        <Bookmark />
                     ),
                 }}
             />
+            <Tabs.Screen
+                name="profile"
+                options={{  
+                    title: 'Perfil',
+                    tabBarIcon: () => (
+                        <UserRound /> 
+                    ),
+                }}
+            />  
+
         </Tabs>
     );
 }

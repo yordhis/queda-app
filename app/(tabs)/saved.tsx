@@ -1,12 +1,10 @@
-// perfil de usuario cliente
-
 import { Text, View } from 'react-native';
 
-export default function profile() {
+export default function saved() {
  
   return (
     <View className="flex-1 bg-white">
-      <Text>Perfil de Usuario Cliente</Text>
+      <Text>Hoteles Guardados</Text>
     </View>
   );
 }

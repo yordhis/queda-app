@@ -9,17 +9,8 @@ export default function AuthLayout() {
         headerStyle: { backgroundColor: '#121212' },
         headerTintColor: '#fff',
         headerTitleStyle: { fontWeight: 'bold' },
-        headerShadowVisible: false, // Quita la línea divisoria
       }}
     >
-      <Stack.Screen 
-        name="login" 
-        options={{ title: 'Iniciar Sesión' }} 
-      />
-      <Stack.Screen 
-        name="register" 
-        options={{ title: 'Crear Cuenta' }} 
-      />
     </Stack>
   );
 }

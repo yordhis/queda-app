@@ -50,7 +50,7 @@ export const BottomTabs = () => {
               </TouchableOpacity>
 
               {/* redireccionar la vista de registro */}
-              <TouchableOpacity className="bg-green-500 p-3 rounded-lg" onPress={()=> router.navigate('/(auth)/register')}>
+              <TouchableOpacity className="bg-green-500 p-3 rounded-lg" onPress={() => router.push('/(auth)/Selecione un rol')}>
                 <Text className="text-white text-center">Registrarse</Text>
               </TouchableOpacity>
             </View>
