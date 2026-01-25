@@ -10,7 +10,10 @@
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.osuna.quedaapp"
+      "bundleIdentifier": "com.osuna.quedaapp",
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "QUEDA! necesita tu ubicación para registrar la posición exacta del hotel."
+      }
     },
     "android": {
       "package": "com.osuna.quedaapp",
@@ -21,7 +24,11 @@
         "monochromeImage": "./assets/images/fondo-app.png"
       },
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "permissions": [
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_FINE_LOCATION"
+      ]
     },
     "web": {
       "bundler": "metro",
@@ -42,10 +49,16 @@
           }
         }
       ],
-       [
+      [
         "expo-image-picker",
         {
           "photosPermission": "La aplicación QUEDA necesita acceso a galeria para subir imagenes del hotel."
+        }
+      ],
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Permite que QUEDA acceda a tu ubicación."
         }
       ]
     ],

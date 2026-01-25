@@ -1,11 +1,20 @@
 import { FormInput } from '@/core/components/common/form/FormInput';
+import { MapPickerModal } from '@/core/components/common/form/MapPickerModal';
 import { MultiImagePicker } from '@/core/components/common/form/MultiImagePicker';
 import { COLORS } from '@/core/constants/theme';
 import React, { useState } from 'react';
-import { KeyboardAvoidingView, ScrollView, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { KeyboardAvoidingView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 export default function HotelRegistrationScreen() {
   const [hotelPhotos, setHotelPhotos] = useState<string[]>([]);
+  const [showMap, setShowMap] = useState(false);
+  const [location, setLocation] = useState('');
+
+  // Función para formatear las coordenadas
+  const handleLocationSelect = (coords: { latitude: number; longitude: number }) => {
+    const coordString = `${coords.latitude.toFixed(6)}, ${coords.longitude.toFixed(6)}`;
+    setLocation(coordString);
+  };
 
   return (
     <KeyboardAvoidingView behavior="padding" style={{ flex: 1 }}>
@@ -22,7 +31,22 @@ export default function HotelRegistrationScreen() {
 
         <Text style={styles.sectionTitle}>Ubicación y contacto</Text>
         <FormInput label="Dirección del lugar" placeholder="Av. Principal, Ciudad" multiline />
-        <FormInput label="Coordenadas de Google Maps" placeholder="Ej: 8.609061284938045, -70.23094839858399" multiline />
+        <TouchableOpacity onPress={() => setShowMap(true)}>
+          <View pointerEvents="none">
+            <FormInput
+              label="Coordenadas de Google Maps"
+              placeholder="Toca para seleccionar en el mapa"
+              value={location}
+              editable={false} // Evita que se abra el teclado
+            />
+          </View>
+        </TouchableOpacity>
+
+        <MapPickerModal
+          isVisible={showMap}
+          onClose={() => setShowMap(false)}
+          onLocationSelected={handleLocationSelect}
+        />
         <FormInput label="Número de Teléfono Fijo" placeholder="Ej: 0212-1234567" keyboardType="phone-pad" />
         <FormInput label="Número de Teléfono Celular" placeholder="Ej: 0414-1234567" keyboardType="phone-pad" />
 
