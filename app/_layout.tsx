@@ -1,25 +1,32 @@
+import { AuthProvider } from '@/context/auth/AuthProvider';
+import * as NavigationBar from 'expo-navigation-bar';
 import { Stack } from "expo-router";
-import { useState } from "react";
+import React, { useEffect } from 'react';
+import { Platform } from 'react-native';
 import "../global.css";
 
-// app/saved-hotels.tsx
 
 export default function RootLayout() {
-  // Aquí podrías verificar si el usuario está logueado
-  const [isAuthenticated, setIsAuthenticated] = useState(false); // Cambia esto según tu lógica de autenticación
-
+  useEffect(() => {
+    if (Platform.OS === 'android') {
+      // Oculta la barra de navegación completamente
+      NavigationBar.setVisibilityAsync("hidden");
+      NavigationBar.setBehaviorAsync("inset-touch");
+    }
+  }, []);
   return (
-    <Stack screenOptions={{
-      headerShown: false,
-      headerStyle: { backgroundColor: '#FFAC00' }, 
-      headerTintColor: '#fff', 
-      headerTitleStyle: { fontWeight: 'bold' }
-    }}>
-      {/* Si no está logueado, mostramos el grupo (auth) */}
-      {!isAuthenticated && <Stack.Screen name="(auth)" />}
+    <AuthProvider>
+      <Stack screenOptions={{
+        headerShown: false,
+        headerStyle: { backgroundColor: '#FFAC00' },
+        headerTintColor: '#fff',
+        headerTitleStyle: { fontWeight: 'bold' }
+      }}>
 
-      {/* Si está logueado, mostramos el grupo (tabs) */}
-      {isAuthenticated && <Stack.Screen name="(tabs)" />}
-    </Stack>
+        {/* Group (tabs) */}
+        {<Stack.Screen name="(tabs)" />}
+      </Stack>
+    </AuthProvider>
   );
 }
+

@@ -1,9 +1,20 @@
 // pagina de inicio mostrando el slider de hoteles
 
+import { useAuth } from '@/context/auth/AuthProvider';
 import { HotelSlider } from '@/context/hotel/components/HotelSlider';
 import { HotelImages } from '@/context/hotel/constants/hotel-images';
 import Hotel from '@/context/hotel/lib/Hotel';
-import { View } from 'react-native';
+import { LoginForm } from '@/context/user/components/form/LoginForm';
+import { useEffect, useState } from "react";
+import { Dimensions, StyleSheet, View } from 'react-native';
+import Animated, {
+  Easing,
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming
+} from 'react-native-reanimated';
+
+const { height } = Dimensions.get('window');
 
 export default function home() {
   const hotelImages = new HotelImages();
@@ -48,11 +59,67 @@ export default function home() {
       isFavorite: false
     },
   ];
+  const [mostrarHoteles, setMostrarHoteles] = useState(false);
+
+  // El valor comienza en la altura total de la pantalla (fuera de vista abajo)
+  const translateY = useSharedValue(height);
+
+  const { isAuthenticated, showLogin, setShowLogin } = useAuth();
+
+  // Mostrar el sheet si no hay sesión
+  useEffect(() => {
+    if (!isAuthenticated || showLogin) {
+      translateY.value = withTiming(0, {
+        duration: 800,
+        easing: Easing.out(Easing.exp),
+      });
+      setShowLogin(true);
+    }
+  }, [isAuthenticated]);
+
+  const animatedStyle = useAnimatedStyle(() => ({
+    transform: [{ translateY: translateY.value }],
+  }));
 
   return (
     <View className="flex-1 bg-white">
+      <View className={mostrarHoteles ? '' : 'hidden'} > {/* Espacio entre el form y el slider */}
+        <HotelSlider hotels={hotelsData} title="Hoteles más cercanos" />
+      </View>
+      <View style={styles.background}>
+        {/* Puedes poner un fondo o logo detrás mientras sube el form */}
+        <Animated.View style={[styles.sheet, animatedStyle]}>
+          <LoginForm onClose={() => {
+            translateY.value = withTiming(height, { duration: 600, easing: Easing.in(Easing.exp) });
+            setTimeout(() => {
+              setMostrarHoteles(true);
+              setShowLogin(false);
+            }, 600);
+          }} />
+        </Animated.View>
+      </View>
       {/* Aquí puedes agregar el componente HotelSlider u otros componentes de la página de inicio */}
-      <HotelSlider hotels={hotelsData} title="Hoteles más cercanos" />
     </View>
+
   );
 }
+
+const styles = StyleSheet.create({
+  background: {
+    flex: 1,
+    backgroundColor: '#F5F5F5', // Color de fondo de la app
+    justifyContent: 'flex-end',
+  },
+  sheet: {
+    backgroundColor: 'white',
+    height: '90%', // Ocupa casi toda la pantalla
+    width: '100%',
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: -4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 10,
+    elevation: 5,
+  },
+});

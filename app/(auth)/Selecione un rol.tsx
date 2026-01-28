@@ -42,11 +42,11 @@ export default function RoleSelectionScreen() {
               : '/(auth)/registers/UserRegistrationScreen')}
         />
 
-        <TouchableOpacity className="p-6 mt-4" onPress={() => router.push('/(tabs)/home')}>
+        <TouchableOpacity className="p-6 mt-4 flex-row items-center justify-center" onPress={() => router.push('/(tabs)/home')}>
           <Text className="text-amber-600 font-medium text-lg">
-            Navegar como anónimo
-            <ChevronRight color="#F59E0B" />
+            Ver hoteles sin registrarse
           </Text>
+            <ChevronRight color="#F59E0B" />
         </TouchableOpacity>
       </View>
     </View>
