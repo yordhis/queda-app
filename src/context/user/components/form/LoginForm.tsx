@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { InputCustom } from './Input';
 
 type Props = {
@@ -26,7 +26,11 @@ export const LoginForm = ({ onClose }: Props) => {
       <Text style={styles.orText}>o inicia con</Text>
 
       <TouchableOpacity style={styles.btnGoogle}>
-        <Text style={styles.googleText}>Continuar con Google</Text>
+        {/* icono */}
+        <Image source={require('assets/images/google-icon.png')} style={{ width: 24, height: 24, marginRight: 10 }} />
+        <Text style={styles.googleText}>
+          Continuar con Google
+        </Text>
       </TouchableOpacity>
 
       <View style={styles.footer}>
@@ -87,6 +91,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
+    flex: 1,
   },
   googleText: {
     color: '#C68E17',

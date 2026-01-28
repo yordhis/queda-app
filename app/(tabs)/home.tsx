@@ -59,6 +59,7 @@ export default function home() {
       isFavorite: false
     },
   ];
+  
   const [mostrarHoteles, setMostrarHoteles] = useState(false);
 
   // El valor comienza en la altura total de la pantalla (fuera de vista abajo)
@@ -83,9 +84,11 @@ export default function home() {
 
   return (
     <View className="flex-1 bg-white">
+
       <View className={mostrarHoteles ? '' : 'hidden'} > {/* Espacio entre el form y el slider */}
         <HotelSlider hotels={hotelsData} title="Hoteles más cercanos" />
       </View>
+
       <View style={styles.background}>
         {/* Puedes poner un fondo o logo detrás mientras sube el form */}
         <Animated.View style={[styles.sheet, animatedStyle]}>
@@ -98,6 +101,7 @@ export default function home() {
           }} />
         </Animated.View>
       </View>
+      
       {/* Aquí puedes agregar el componente HotelSlider u otros componentes de la página de inicio */}
     </View>
 
