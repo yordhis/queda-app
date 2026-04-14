@@ -31,7 +31,7 @@ export default function TabsLayout() {
                 headerShadowVisible: true, // Quita la línea divisoria
             }}
         >
-        
+
             <Tabs.Screen
                 name="home"
                 options={{
@@ -52,32 +52,13 @@ export default function TabsLayout() {
             />
             <Tabs.Screen
                 name="profile"
-                options={
-                    isAuthenticated
-                        ? {
-                              title: 'Perfil',
-                              tabBarIcon: ({ color, size }) => (
-                                  <UserRound color={color} size={size} />
-                              ),
-                          }
-                        : {
-                              title: 'Identificarme',
-                              tabBarIcon: ({ color, size }) => (
-                                  <UserRound color={color} size={size} />
-                              ),
-                              tabBarButton: (props: any) => (
-                                  <TouchableOpacity
-                                      {...props}
-                                      onPress={() => {
-                                          setShowLogin(true);
-                                      }}
-                                  />
-                              ),
-                          }
-                }
+                options={{
+                    title:  "Perfil",
+                    tabBarIcon: ({ color, size }) => (
+                        <UserRound color={color} size={size} />
+                    ),
+                }}
             />
-    
-         
         </Tabs>
 
     );

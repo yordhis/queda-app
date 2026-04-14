@@ -69,16 +69,20 @@ export default function home() {
 
   const { isAuthenticated, showLogin, setShowLogin } = useAuth();
 
-  // Mostrar el sheet si no hay sesión
+  // Mostrar u ocultar el sheet según auth y la bandera de login
   useEffect(() => {
-    if (!isAuthenticated || showLogin) {
+    if (!isAuthenticated && showLogin) {
       translateY.value = withTiming(0, {
         duration: 800,
         easing: Easing.out(Easing.exp),
       });
-      setShowLogin(true);
+    } else {
+      translateY.value = withTiming(height, {
+        duration: 600,
+        easing: Easing.in(Easing.exp),
+      });
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, showLogin]);
 
   // Cuando se muestren los hoteles, hacer scroll hacia abajo
   useEffect(() => {
@@ -95,52 +99,50 @@ export default function home() {
   }));
 
   return (
-    <ScrollView ref={scrollRef} contentContainerStyle={{ flexGrow: 1 }} className="bg-white">
+    <View style={{ flex: 1 }}>
+      <ScrollView ref={scrollRef} contentContainerStyle={{ flexGrow: 1 }} className="bg-white">
 
-      <SearchInput/>
+        <SearchInput/>
 
-      <View className={mostrarHoteles ? '' : 'hidden'} > {/* Espacio entre el form y el slider */}
-        <HotelSlider hotels={hotelsData} title="Hoteles más cercanos" />
-      </View>
-      <View className={mostrarHoteles ? '' : 'hidden'} > {/* Espacio entre el form y el slider */}
-        <HotelSlider hotels={hotelsData} title="Hoteles destacados" />
-      </View>
-      <View className={mostrarHoteles ? '' : 'hidden'} > {/* Espacio entre el form y el slider */}
-        <HotelSlider hotels={hotelsData} title="Hoteles con piscina" />
-      </View>
-      <View className={mostrarHoteles ? '' : 'hidden'} > {/* Espacio entre el form y el slider */}
-        <HotelSlider hotels={hotelsData} title="Hoteles familiares" />
-      </View>
-      <View className={mostrarHoteles ? '' : 'hidden'} > {/* Espacio entre el form y el slider */}
-        <HotelSlider hotels={hotelsData} title="Hoteles 5 star" />
-      </View>
+        <View className={mostrarHoteles ? '' : 'hidden'} > {/* Espacio entre el form y el slider */}
+          <HotelSlider hotels={hotelsData} title="Hoteles más cercanos" />
+        </View>
+        <View className={mostrarHoteles ? '' : 'hidden'} > {/* Espacio entre el form y el slider */}
+          <HotelSlider hotels={hotelsData} title="Hoteles destacados" />
+        </View>
+        <View className={mostrarHoteles ? '' : 'hidden'} > {/* Espacio entre el form y el slider */}
+          <HotelSlider hotels={hotelsData} title="Hoteles con piscina" />
+        </View>
+        <View className={mostrarHoteles ? '' : 'hidden'} > {/* Espacio entre el form y el slider */}
+          <HotelSlider hotels={hotelsData} title="Hoteles familiares" />
+        </View>
+        <View className={mostrarHoteles ? '' : 'hidden'} > {/* Espacio entre el form y el slider */}
+          <HotelSlider hotels={hotelsData} title="Hoteles 5 star" />
+        </View>
 
-      <View style={styles.background}>
-        {/* Puedes poner un fondo o logo detrás mientras sube el form */}
-        <Animated.View style={[styles.sheet, animatedStyle]}>
-          <LoginForm onClose={() => {
-            translateY.value = withTiming(height, { duration: 600, easing: Easing.in(Easing.exp) });
-            setTimeout(() => {
-              setMostrarHoteles(true);
-              setShowLogin(false);
-            }, 600);
-          }} />
-        </Animated.View>
-      </View>
-      
-      {/* Aquí puedes agregar el componente HotelSlider u otros componentes de la página de inicio */}
-    </ScrollView>
+        {/* Aquí puedes agregar el componente HotelSlider u otros componentes de la página de inicio */}
+      </ScrollView>
+
+      <Animated.View pointerEvents={showLogin ? 'auto' : 'none'} style={[styles.sheet, animatedStyle]}>
+        <LoginForm onClose={() => {
+          translateY.value = withTiming(height, { duration: 600, easing: Easing.in(Easing.exp) });
+          setTimeout(() => {
+            setMostrarHoteles(true);
+            setShowLogin(false);
+          }, 600);
+        }} />
+      </Animated.View>
+    </View>
 
   );
 }
 
 const styles = StyleSheet.create({
-  background: {
-    flex: 1,
-    backgroundColor: '#F5F5F5', // Color de fondo de la app
-    justifyContent: 'flex-end',
-  },
   sheet: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
     backgroundColor: 'white',
     height: '90%', // Ocupa casi toda la pantalla
     width: '100%',
@@ -151,5 +153,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 10,
     elevation: 5,
+    zIndex: 10,
   },
 });

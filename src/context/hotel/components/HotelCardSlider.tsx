@@ -1,6 +1,7 @@
 // src/components/hotels/HotelCardSlider.tsx
 
 import Hotel from '@/context/hotel/lib/Hotel';
+import { COLORS } from '@/core/constants/theme';
 import { Bookmark, Star } from 'lucide-react-native';
 import React from 'react';
 import { Dimensions, Image, Text, TouchableOpacity, View } from 'react-native';
@@ -10,14 +11,14 @@ const CARD_WIDTH = width * 0.75; // La tarjeta ocupa el 75% del ancho para que s
 
 export const HotelCardSlider = ({ hotel }: { hotel: Hotel }) => {
   return (
-    <View 
-      style={{ width: CARD_WIDTH }} 
-      className="bg-white rounded-3xl shadow-lg ml-4 mb-6 overflow-hidden border border-gray-100"
+    <View
+      style={[{ width: CARD_WIDTH }, { backgroundColor: hotel.isAvailable ? COLORS.white : COLORS.secondary   }]}
+      className="rounded-3xl shadow-lg ml-4 mb-6 overflow-hidden border border-gray-100"
     >
       {/* Imagen con botón de Guardar */}
       <View className="relative h-48">
-        <Image 
-          source={{ uri: hotel.imageUrl[0] }} 
+        <Image
+          source={{ uri: hotel.imageUrl[0] }}
           className="w-full h-full"
           resizeMode="cover"
         />
@@ -33,10 +34,14 @@ export const HotelCardSlider = ({ hotel }: { hotel: Hotel }) => {
           {hotel.name}
         </Text>
         <View className="flex-row items-center mb-1">
-          <Text className="text-yellow-400 font-bold mr-2">
-            <Star size={12} color={'orange'} />
+          <Text className="flex font-bold items-center mr-2"
+            style={{ color: COLORS.text }}>
+            <Star size={12} color={COLORS.primary} style={{ marginRight: 4 }} />
             {hotel.rating}</Text>
-          <Text className="text-gray-400">{hotel.reviewsCount} Visitas </Text>
+          <Text className=""
+            style={{ color: COLORS.primary }}>
+            {hotel.reviewsCount} Visitas
+          </Text>
         </View>
 
         <Text className="text-gray-500 text-sm mb-4" numberOfLines={2}>
@@ -49,10 +54,12 @@ export const HotelCardSlider = ({ hotel }: { hotel: Hotel }) => {
 
         {/* Indicador de Disponibilidad */}
         <View className="flex-row items-center">
-          <View 
-            className={`w-3 h-3 rounded-full ${hotel.isAvailable ? 'bg-lime-500' : 'bg-red-500'}`} 
+          <View
+            className={`w-3 h-3 rounded-full`}
+            style={{ backgroundColor: hotel.isAvailable ? COLORS.success : COLORS.danger }}
           />
-          <Text className="ml-2 text-gray-800 font-medium">
+          <Text className="ml-2 font-medium"
+            style={{ color: COLORS.text }}>
             {hotel.isAvailable ? 'Disponible' : 'No disponible'}
           </Text>
         </View>

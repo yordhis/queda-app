@@ -1,4 +1,5 @@
 
+import { COLORS } from '@/core/constants/theme';
 import { Stack } from 'expo-router';
 
 export default function AuthLayout() {
@@ -6,8 +7,8 @@ export default function AuthLayout() {
     <Stack
       screenOptions={{
         // Estilo global para las pantallas de login/registro
-        headerStyle: { backgroundColor: '#121212' },
-        headerTintColor: '#fff',
+        headerStyle: { backgroundColor: COLORS.primary },
+        headerTintColor: COLORS.secondary,
         headerTitleStyle: { fontWeight: 'bold' },
       }}
     >
