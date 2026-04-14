@@ -12,7 +12,7 @@ const SearchInput = () => {
       {/* Campo de entrada de texto */}
       <TextInput
         style={styles.input}
-        placeholder="¡Quédate en un sitio!"
+        placeholder="¡Busca donde quedarte!"
         placeholderTextColor="#F59E0B" // Color naranja del placeholder
         selectionColor="#F59E0B" // Color del cursor
       />

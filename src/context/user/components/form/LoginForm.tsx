@@ -1,4 +1,6 @@
-import React from 'react';
+import { handleBackendLogin } from '@/context/auth/services/handleBackendLogin';
+import * as Google from 'expo-auth-session/providers/google';
+import React, { useEffect } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { InputCustom } from './Input';
 
@@ -7,13 +9,32 @@ type Props = {
 };
 
 export const LoginForm = ({ onClose }: Props) => {
+  // Dentro de tu componente LoginForm:
+  const [request, response, promptAsync] = Google.useAuthRequest({
+    androidClientId: "1024983273314-cokamsd9v57ijsljis3b6b0fatqek405.apps.googleusercontent.com",
+    webClientId: "1024983273314-tv9k3og87e7ajf4bnjtsji5ebg6ujd1e.apps.googleusercontent.com",
+    // Si usas iOS nativo también agrega iosClientId aquí.
+  });
+
+  useEffect(() => {
+    console.log(" Respuesta de Google Auth:", response); 
+    
+    if (response?.type === 'success') {
+      const { id_token } = response.params;
+      console.log(id_token);
+      
+      // ENVIAR id_token A TU BACKEND NESTJS
+      handleBackendLogin(id_token);
+    }
+  }, [response]);
+
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.closeBtn} onPress={onClose} accessibilityLabel="Cerrar formulario">
         <Text style={styles.closeText}>✕</Text>
       </TouchableOpacity>
 
-      <Text style={styles.logo}>¡Queda!</Text>
+      <Text style={styles.logo}>¡Bienvenido!</Text>
       <Text style={styles.title}>Inicia sesión</Text>
 
       <InputCustom placeholder="Email" />
@@ -25,18 +46,18 @@ export const LoginForm = ({ onClose }: Props) => {
 
       <Text style={styles.orText}>o inicia con</Text>
 
-      <TouchableOpacity style={styles.btnGoogle}>
+      <TouchableOpacity style={styles.btnGoogle} onPress={() => promptAsync()}>
         {/* icono */}
         <Image source={require('assets/images/google-icon.png')} style={{ width: 24, height: 24, marginRight: 10 }} />
-        <Text style={styles.googleText}>
-          Continuar con Google
-        </Text>
+        <Text className="text-[#C68E17] font-semibold">Continuar con Google</Text>
       </TouchableOpacity>
 
       <View style={styles.footer}>
         <Text style={styles.footerText}>¿No tienes cuenta? </Text>
-        <TouchableOpacity>
-          <Text style={[styles.footerText, { color: '#007AFF', fontWeight: '600' }]}>Regístrate</Text>
+        <TouchableOpacity onPress={() => console.log('Navigate to register')}>
+          <Text style={[styles.footerText, { color: '#007AFF', fontWeight: '600' }]}>
+            Regístrate
+          </Text>
         </TouchableOpacity>
       </View>
     </View>

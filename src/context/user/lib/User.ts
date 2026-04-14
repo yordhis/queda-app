@@ -1,14 +1,8 @@
 interface User {
     id: string;
-    name: string;
     email: string;
-    address: string;
-    role: 'client' | 'admin' | 'hotel_owner';
+    role: string; // e.g., 'admin', 'user', etc.
     roleId: string; // ID referencing the role details
-    phone?: string;
-    token_google?: string; // optional Google token for authentication
-    createdAt: Date;
-    updatedAt: Date;
 };
 
 interface UserRegistrationData {
@@ -16,7 +10,10 @@ interface UserRegistrationData {
     password: string;
     passwordConfirmation: string;
     roleId: string;
-    token_google?: string; // optional Google token for authentication
+    google_id?: string; // optional Google token for authentication
 }
 
+
+
 export { User, UserRegistrationData };
+

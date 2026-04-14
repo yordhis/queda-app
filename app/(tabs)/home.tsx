@@ -5,8 +5,9 @@ import { HotelSlider } from '@/context/hotel/components/HotelSlider';
 import { HotelImages } from '@/context/hotel/constants/hotel-images';
 import Hotel from '@/context/hotel/lib/Hotel';
 import { LoginForm } from '@/context/user/components/form/LoginForm';
-import { useEffect, useState } from "react";
-import { Dimensions, StyleSheet, View } from 'react-native';
+import SearchInput from '@/core/components/common/SearchInput';
+import { useEffect, useRef, useState } from "react";
+import { Dimensions, ScrollView, StyleSheet, View } from 'react-native';
 import Animated, {
   Easing,
   useAnimatedStyle,
@@ -61,6 +62,7 @@ export default function home() {
   ];
   
   const [mostrarHoteles, setMostrarHoteles] = useState(false);
+  const scrollRef = useRef<ScrollView | null>(null);
 
   // El valor comienza en la altura total de la pantalla (fuera de vista abajo)
   const translateY = useSharedValue(height);
@@ -78,15 +80,39 @@ export default function home() {
     }
   }, [isAuthenticated]);
 
+  // Cuando se muestren los hoteles, hacer scroll hacia abajo
+  useEffect(() => {
+    if (mostrarHoteles) {
+      const t = setTimeout(() => {
+        scrollRef.current?.scrollTo({ y: 0, animated: true });
+      }, 120);
+      return () => clearTimeout(t);
+    }
+  }, [mostrarHoteles]);
+
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [{ translateY: translateY.value }],
   }));
 
   return (
-    <View className="flex-1 bg-white">
+    <ScrollView ref={scrollRef} contentContainerStyle={{ flexGrow: 1 }} className="bg-white">
+
+      <SearchInput/>
 
       <View className={mostrarHoteles ? '' : 'hidden'} > {/* Espacio entre el form y el slider */}
         <HotelSlider hotels={hotelsData} title="Hoteles más cercanos" />
+      </View>
+      <View className={mostrarHoteles ? '' : 'hidden'} > {/* Espacio entre el form y el slider */}
+        <HotelSlider hotels={hotelsData} title="Hoteles destacados" />
+      </View>
+      <View className={mostrarHoteles ? '' : 'hidden'} > {/* Espacio entre el form y el slider */}
+        <HotelSlider hotels={hotelsData} title="Hoteles con piscina" />
+      </View>
+      <View className={mostrarHoteles ? '' : 'hidden'} > {/* Espacio entre el form y el slider */}
+        <HotelSlider hotels={hotelsData} title="Hoteles familiares" />
+      </View>
+      <View className={mostrarHoteles ? '' : 'hidden'} > {/* Espacio entre el form y el slider */}
+        <HotelSlider hotels={hotelsData} title="Hoteles 5 star" />
       </View>
 
       <View style={styles.background}>
@@ -103,7 +129,7 @@ export default function home() {
       </View>
       
       {/* Aquí puedes agregar el componente HotelSlider u otros componentes de la página de inicio */}
-    </View>
+    </ScrollView>
 
   );
 }

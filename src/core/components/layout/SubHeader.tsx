@@ -1,6 +1,6 @@
 // src/components/layout/SubHeader.tsx
 import { Text, View } from 'react-native';
-import InputFilter from '../common/InputFilter';
+import InputFilter from '../common/SearchInput';
 
 interface SubHeaderProps {
   title: string;
