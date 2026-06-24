@@ -7,7 +7,6 @@
     "icon": "./assets/images/logo.png",
     "scheme": "quedaapp",
     "userInterfaceStyle": "automatic",
-    "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.osuna.quedaapp",
@@ -23,7 +22,6 @@
         "backgroundImage": "./assets/images/fondo-app.png",
         "monochromeImage": "./assets/images/fondo-app.png"
       },
-      "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false,
       "permissions": [
         "ACCESS_COARSE_LOCATION",
@@ -60,7 +58,9 @@
         {
           "locationAlwaysAndWhenInUsePermission": "Permite que QUEDA acceda a tu ubicación."
         }
-      ]
+      ],
+      "expo-font",
+      "expo-web-browser"
     ],
     "experiments": {
       "typedRoutes": true,
