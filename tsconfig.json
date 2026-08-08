@@ -5,10 +5,14 @@
     "baseUrl": ".",
     "paths": {
       "@/*": [
-        "./src/*"
+        "./src/*",
+        "./*"
       ],
       "@app/*": [
         "./app/*"
+      ],
+      "tailwind.config": [
+        "./tailwind.config.js"
       ]
     }
   },
@@ -17,6 +21,7 @@
     "**/*.tsx",
     ".expo/types/**/*.ts",
     "expo-env.d.ts",
-    "nativewind-env.d.ts", 
-    "metro.config.js"  ]
+    "nativewind-env.d.ts",
+    "metro.config.js"
+  ]
 }

@@ -1,16 +1,16 @@
-import { AuthProvider } from '@/context/auth/AuthProvider';
-import * as NavigationBar from 'expo-navigation-bar';
-import { Stack } from 'expo-router';
-import React, { useEffect } from 'react';
-import { Platform } from 'react-native';
+import { AuthProvider } from "@/context/auth/AuthProvider";
+import * as NavigationBar from "expo-navigation-bar";
+import { Stack } from "expo-router";
+import { useEffect } from "react";
+import { Platform } from "react-native";
 import "../global.css";
 
 export default function RootLayout() {
   useEffect(() => {
-    if (Platform.OS === 'android') {
+    if (Platform.OS === "android") {
       // Oculta la barra de navegación completamente
       NavigationBar.setVisibilityAsync("hidden");
-      NavigationBar.setBehaviorAsync("inset-touch");
+      // NavigationBar.setBehaviorAsync("inset-touch");
     }
   }, []);
 
@@ -22,4 +22,3 @@ export default function RootLayout() {
     </AuthProvider>
   );
 }
-

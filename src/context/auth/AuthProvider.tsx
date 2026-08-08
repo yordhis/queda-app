@@ -1,4 +1,4 @@
-import React, { createContext, ReactNode, useContext, useState } from 'react';
+import { createContext, ReactNode, useContext, useState } from "react";
 
 type AuthContextType = {
   isAuthenticated: boolean;
@@ -15,7 +15,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [showLogin, setShowLogin] = useState(!isAuthenticated);
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated, showLogin, setShowLogin }}>
+    <AuthContext.Provider
+      value={{ isAuthenticated, setIsAuthenticated, showLogin, setShowLogin }}
+    >
       {children}
     </AuthContext.Provider>
   );
@@ -24,7 +26,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 // Custom hook para usar el contexto de autenticación
 export const useAuth = () => {
   const ctx = useContext(AuthContext);
-  if (!ctx) throw new Error('useAuth must be used within AuthProvider');
+  if (!ctx) throw new Error("useAuth must be used within AuthProvider");
   return ctx;
 };
 

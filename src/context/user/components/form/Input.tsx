@@ -1,6 +1,4 @@
-import { COLORS } from '@/core/constants/theme';
-import React from 'react';
-import { StyleSheet, TextInput, View } from 'react-native';
+import { StyleSheet, TextInput, View } from "react-native";
 
 interface Props {
   placeholder: string;
@@ -10,9 +8,9 @@ interface Props {
 export const InputCustom = ({ placeholder, secureTextEntry }: Props) => {
   return (
     <View style={styles.container}>
-      <TextInput 
-        placeholder={placeholder} 
-        placeholderTextColor={COLORS.primary}
+      <TextInput
+        placeholder={placeholder}
+        placeholderTextColor={"#000"}
         secureTextEntry={secureTextEntry}
         style={styles.input}
       />
@@ -22,16 +20,16 @@ export const InputCustom = ({ placeholder, secureTextEntry }: Props) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: COLORS.secondary,
+    backgroundColor: "#D1D5DB",
     borderRadius: 25,
     paddingHorizontal: 20,
     height: 55,
-    justifyContent: 'center',
+    justifyContent: "center",
     marginBottom: 15,
-    width: '100%',
+    width: "100%",
   },
   input: {
-    color: '#000000',
+    color: "#000000",
     fontSize: 16,
   },
 });
